@@ -1,312 +1,540 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Polytechnic College, Uthangarai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- DESIGN SYSTEM & CSS VARIABLES --- */
+        :root {
+            --bg-dark: #0a0c10;
+            --bg-card: rgba(18, 22, 32, 0.65);
+            --border-glow: rgba(99, 102, 241, 0.15);
+            --primary: #6366f1; /* Royal Indigo */
+            --primary-glow: rgba(99, 102, 241, 0.35);
+            --secondary: #06b6d4; /* Cyber Cyan */
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-<title>THIRU EDITS | Professional Video Editor</title>
+        /* --- RESET & BASIC SETUP --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-<style>
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            position: relative;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
+        /* --- HIGH-LEVEL INTERACTIVE MOUSE BACKGROUND --- */
+        .bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.05) 0%, transparent 40%);
+        }
 
-body{
-    background:#000;
-    color:white;
-}
+        /* Animated Grid Overlay */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-.hero{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    background:
-    linear-gradient(rgba(0,0,0,0.6),
-    rgba(0,0,0,0.8)),
-    url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4');
-    background-size:cover;
-    background-position:center;
-}
+        /* Interactive Mouse Glow Element */
+        .mouse-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(6, 182, 212, 0.03) 50%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+        }
 
-.hero h1{
-    font-size:70px;
-    color:#ff0000;
-    text-shadow:0 0 20px red;
-}
+        /* --- GLASSMORPHISM HEADER & NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 12, 16, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glow);
+        }
 
-.hero p{
-    font-size:22px;
-    margin-top:20px;
-    width:80%;
-    max-width:800px;
-}
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-.btn{
-    margin-top:30px;
-    padding:15px 40px;
-    background:#ff0000;
-    color:white;
-    text-decoration:none;
-    font-size:20px;
-    border-radius:40px;
-    transition:0.3s;
-}
+        .logo-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-.btn:hover{
-    background:white;
-    color:black;
-}
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #fff;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
 
-section{
-    padding:80px 10%;
-}
+        .logo-text h1 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-.title{
-    text-align:center;
-    color:#ff0000;
-    font-size:40px;
-    margin-bottom:40px;
-}
+        .logo-text p {
+            font-size: 0.7rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
 
-.stats{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:20px;
-}
+        /* Responsive Navigation Menu */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
 
-.stat-box{
-    background:#111;
-    padding:30px;
-    width:250px;
-    text-align:center;
-    border:1px solid red;
-    border-radius:15px;
-}
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            position: relative;
+        }
 
-.stat-box h2{
-    color:red;
-}
+        .nav-link:hover, .nav-link.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+        }
 
-.services{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
 
-.card{
-    background:#111;
-    padding:25px;
-    border-radius:15px;
-    border-left:5px solid red;
-}
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 60%;
+        }
 
-.card h3{
-    color:red;
-    margin-bottom:10px;
-}
+        /* --- HERO HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-.portfolio{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:20px;
-}
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
 
-.portfolio video{
-    width:100%;
-    border-radius:10px;
-}
+        .hero-content h2 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-.testimonial{
-    background:#111;
-    padding:25px;
-    border-radius:15px;
-    margin-bottom:20px;
-}
+        .hero-content h2::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            background: var(--secondary);
+            display: inline-block;
+        }
 
-.contact{
-    text-align:center;
-}
+        .hero-content h1 {
+            font-size: 3.8rem;
+            line-height: 1.15;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
 
-.contact a{
-    display:inline-block;
-    margin-top:20px;
-}
+        .hero-content h1 span {
+            background: linear-gradient(135deg, #fff 30%, var(--primary) 70%, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-footer{
-    background:#111;
-    text-align:center;
-    padding:20px;
-}
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
 
-</style>
+        /* Interactive Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2.2rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: #fff;
+            border: 1px solid var(--border-glow);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Interactive Visual Dashboard Widget */
+        .hero-graphic {
+            position: relative;
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: scale(1.02) rotate(1deg);
+        }
+
+        .notice-badge {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .notice-list {
+            list-style: none;
+        }
+
+        .notice-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .notice-item:last-child {
+            border-bottom: none;
+        }
+
+        .notice-date {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glow);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 65px;
+        }
+
+        .notice-date span {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .notice-date small {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .notice-text h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: #fff;
+        }
+
+        .notice-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* --- QUICK METRICS --- */
+        .metrics-bar {
+            background: rgba(18, 22, 32, 0.4);
+            border-y: 1px solid var(--border-glow);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-glow);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 2.5rem 0;
+        }
+
+        .metrics-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .metric-item h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .metric-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- RESPONSIVE BREAKPOINT --- */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .metrics-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nav-menu {
+                display: none; /* Can be enhanced further into a mobile burger drawer */
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="hero">
+    <div class="bg-canvas"></div>
+    <div class="bg-grid"></div>
+    <div class="mouse-glow" id="mouseGlow"></div>
 
-<h1>THIRU EDITS</h1>
+    <header>
+        <nav class="nav-container">
+            <div class="logo-block">
+                <div class="logo-icon">
+                    <i class="fa-solid : fa-graduation-cap"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>GPT UTHANGARAI</h1>
+                    <p>Govt. Polytechnic College</p>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#academics" class="nav-link">Academics</a></li>
+                <li><a href="#faculties" class="nav-link">Faculties</a></li>
+                <li><a href="#aicte" class="nav-link">AICTE</a></li>
+                <li><a href="#activities" class="nav-link">Activities</a></li>
+                <li><a href="#campus" class="nav-link">Campus Life</a></li>
+                <li><a href="#archives" class="nav-link">Archives</a></li>
+                <li><a href="#student" class="nav-link">Student Corner</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<p>
-I DON'T EDIT VIDEOS.
-I CREATE EXPERIENCES THAT GRAB ATTENTION,
-BUILD BRANDS AND TURN VIEWERS INTO CUSTOMERS.
-</p>
+    <section class="hero" id="home">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <h2>Welcome to Premium Education</h2>
+                <h1>Empowering Tomorrow via <span>Technical Excellence</span></h1>
+                <p>Government Polytechnic College, Uthangarai (Krishnagiri District) offers highly progressive engineering diploma pathways approved by AICTE, creating highly capable technocrats prepared for modern engineering challenges.</p>
+                <div class="btn-group">
+                    <a href="#academics" class="btn btn-primary">Explore Academics <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-secondary">Student Corner</a>
+                </div>
+            </div>
+            
+            <div class="hero-graphic">
+                <div class="glass-card">
+                    <span class="notice-badge"><i class="fa-solid fa-bell"></i> Live Updates & Archives</span>
+                    <ul class="notice-list">
+                        <li class="notice-item">
+                            <div class="notice-date">
+                                <span>12</span>
+                                <small>Aug</small>
+                            </div>
+                            <div class="notice-text">
+                                <h3>AICTE EOA 2026-27</h3>
+                                <p>Extension of Approval received successfully for current cycles.</p>
+                            </div>
+                        </li>
+                        <li class="notice-item">
+                            <div class="notice-date">
+                                <span>05</span>
+                                <small>Aug</small>
+                            </div>
+                            <div class="notice-text">
+                                <h3>Admission Registrations Open</h3>
+                                <p>Diploma structural programs application windows are live.</p>
+                            </div>
+                        </li>
+                        <li class="notice-item">
+                            <div class="notice-date">
+                                <span>28</span>
+                                <small>Jul</small>
+                            </div>
+                            <div class="notice-text">
+                                <h3>Symposium Activities Setup</h3>
+                                <p>Annual technological intra-college activities dashboard configured.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<a href="#contact" class="btn">HIRE ME NOW</a>
+    <div class="metrics-bar">
+        <div class="metrics-container">
+            <div class="metric-item">
+                <h2>100%</h2>
+                <p>AICTE Approved</p>
+            </div>
+            <div class="metric-item">
+                <h2>5+</h2>
+                <p>Core Streams</p>
+            </div>
+            <div class="metric-item">
+                <h2>30+</h2>
+                <p>Expert Faculty</p>
+            </div>
+            <div class="metric-item">
+                <h2>1500+</h2>
+                <p>Alumni Base</p>
+            </div>
+        </div>
+    </div>
 
-</div>
+    <script>
+        const glowElement = document.getElementById('mouseGlow');
 
-<section>
-
-<h2 class="title">RESULTS</h2>
-
-<div class="stats">
-
-<div class="stat-box">
-<h2>100M+</h2>
-<p>Views Generated</p>
-</div>
-
-<div class="stat-box">
-<h2>500+</h2>
-<p>Projects Completed</p>
-</div>
-
-<div class="stat-box">
-<h2>50+</h2>
-<p>Happy Clients</p>
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<h2 class="title">SERVICES</h2>
-
-<div class="services">
-
-<div class="card">
-<h3>Cinematic Reels</h3>
-<p>High-retention Instagram and TikTok edits.</p>
-</div>
-
-<div class="card">
-<h3>YouTube Editing</h3>
-<p>Professional editing for creators and influencers.</p>
-</div>
-
-<div class="card">
-<h3>Motion Graphics</h3>
-<p>Premium animations and visual effects.</p>
-</div>
-
-<div class="card">
-<h3>Commercial Ads</h3>
-<p>Luxury brand advertisements and promotions.</p>
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<h2 class="title">PORTFOLIO</h2>
-
-<div class="portfolio">
-
-<div>
-<video controls>
-<source src="video1.mp4" type="video/mp4">
-</video>
-</div>
-
-<div>
-<video controls>
-<source src="video2.mp4" type="video/mp4">
-</video>
-</div>
-
-<div>
-<video controls>
-<source src="video3.mp4" type="video/mp4">
-</video>
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<h2 class="title">CLIENT RESULTS</h2>
-
-<div class="card">
-<h3>Creator Growth</h3>
-<p>10K Views → 500K Views</p>
-</div>
-
-<br>
-
-<div class="card">
-<h3>Brand Campaign</h3>
-<p>Increased engagement by 400%</p>
-</div>
-
-</section>
-
-<section>
-
-<h2 class="title">TESTIMONIALS</h2>
-
-<div class="testimonial">
-⭐⭐⭐⭐⭐
-Amazing editor. My reels reached thousands of new viewers.
-</div>
-
-<div class="testimonial">
-⭐⭐⭐⭐⭐
-Professional quality and fast delivery.
-</div>
-
-</section>
-
-<section id="contact">
-
-<h2 class="title">READY TO GO VIRAL?</h2>
-
-<div class="contact">
-
-<p>Email : thiru2007@gmail.com</p>
-
-<p>Instagram : @_thruxx_tn29</p>
-
-<p>WhatsApp : +91 9360695563</p>
-
-<a href="https://wa.me/919360695563" class="btn">
-BOOK A FREE CALL
-</a>
-
-</div>
-
-</section>
-
-<footer>
-
-© 2026 THIRU EDITS | ALL RIGHTS RESERVED
-
-</footer>
-
+        // Dynamic fluid tracking of mouse coordinates across the UI viewport
+        window.addEventListener('mousemove', (e) => {
+            const xCoord = e.clientX;
+            const yCoord = e.clientY;
+            
+            // Updates positioning smoothly utilizing GPU accelerations via translation
+            glowElement.style.transform = `translate(${xCoord}px, ${yCoord}px) translate(-50%, -50%)`;
+        });
+    </script>
 </body>
 </html>
