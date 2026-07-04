@@ -4,661 +4,323 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Government Polytechnic College, Uthangarai</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
     <style>
-    /* --- DESIGN SYSTEM & CSS VARIABLES --- */
-    :root {
-        --bg-dark: #07090e;
-        --bg-card: rgba(13, 17, 26, 0.7);
-        --border-glow: rgba(99, 102, 241, 0.15);
-        --primary: #6366f1; /* Royal Indigo */
-        --primary-glow: rgba(99, 102, 241, 0.4);
-        --secondary: #06b6d4; /* Cyber Cyan */
-        --secondary-glow: rgba(6, 182, 212, 0.3);
-        --text-main: #f3f4f6;
-        --text-muted: #9ca3af;
-        --font-main: 'Plus Jakarta Sans', sans-serif;
-        --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* --- RESET & BASIC SETUP --- */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        scroll-behavior: smooth;
-    }
-
-    body {
-        background-color: var(--bg-dark);
-        color: var(--text-main);
-        font-family: var(--font-main);
-        overflow-x: hidden;
-        position: relative;
-    }
-
-    /* --- ADVANCED BACKGROUND CANVAS --- */
-    #bgCanvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -2;
-        background: radial-gradient(circle at 50% 50%, #0c101b 0%, var(--bg-dark) 100%);
-    }
-
-    /* Interactive Mouse Glow Element */
-    .mouse-glow {
-        position: fixed;
-        width: 700px;
-        height: 700px;
-        background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.04) 45%, transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: -1;
-        left: 0;
-        top: 0;
-        transform: translate(-50%, -50%);
-        will-change: transform;
-        transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    /* --- GLASSMORPHISM HEADER & NAVIGATION --- */
-    header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        background: rgba(7, 9, 14, 0.7);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border-glow);
-    }
-
-    .nav-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 1.2rem 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .logo-block {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-    }
-
-    .logo-icon {
-        width: 48px;
-        height: 48px;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        color: #fff;
-        box-shadow: 0 0 25px var(--primary-glow);
-    }
-
-    .logo-text h1 {
-        font-size: 1.2rem;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-        background: linear-gradient(to right, #fff, #d1d5db);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .logo-text p {
-        font-size: 0.7rem;
-        color: var(--secondary);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        font-weight: 600;
-        margin-top: 2px;
-    }
-
-    /* Navigation Menu */
-    .nav-menu {
-        display: flex;
-        list-style: none;
-        gap: 0.8rem;
-    }
-
-    .nav-link {
-        color: var(--text-muted);
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: var(--transition);
-        padding: 0.6rem 1rem;
-        border-radius: 8px;
-        position: relative;
-    }
-
-    .nav-link:hover, .nav-link.active {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.05);
-    }
-
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: 4px;
-        left: 50%;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(to right, var(--primary), var(--secondary));
-        transition: var(--transition);
-        transform: translateX(-50%);
-    }
-
-    .nav-link:hover::after, .nav-link.active::after {
-        width: 50%;
-    }
-
-    /* --- HERO SECTION --- */
-    .hero {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        padding: 8rem 2rem 4rem 2rem;
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .hero-grid {
-        display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 5rem;
-        align-items: center;
-    }
-
-    .hero-content h2 {
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        color: var(--secondary);
-        margin-bottom: 1.2rem;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .hero-content h2::before {
-        content: '';
-        width: 24px;
-        height: 2px;
-        background: var(--secondary);
-        display: inline-block;
-    }
-
-    .hero-content h1 {
-        font-size: 4rem;
-        line-height: 1.15;
-        font-weight: 800;
-        margin-bottom: 1.8rem;
-        letter-spacing: -1.5px;
-    }
-
-    .hero-content h1 span {
-        background: linear-gradient(135deg, #fff 20%, var(--primary) 65%, var(--secondary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .hero-content p {
-        color: var(--text-muted);
-        font-size: 1.15rem;
-        line-height: 1.7;
-        margin-bottom: 2.5rem;
-        max-width: 620px;
-    }
-
-    /* Buttons */
-    .btn-group {
-        display: flex;
-        gap: 1.5rem;
-    }
-
-    .btn {
-        padding: 1rem 2.4rem;
-        border-radius: 12px;
-        font-size: 0.95rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition: var(--transition);
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .btn-primary {
-        background: linear-gradient(135deg, var(--primary), #4f46e5);
-        color: #fff;
-        box-shadow: 0 10px 35px rgba(99, 102, 241, 0.35);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 15px 40px rgba(99, 102, 241, 0.55);
-    }
-
-    .btn-secondary {
-        background: rgba(255, 255, 255, 0.02);
-        color: #fff;
-        border: 1px solid var(--border-glow);
-        backdrop-filter: blur(10px);
-    }
-
-    .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.06);
-        border-color: rgba(255, 255, 255, 0.25);
-        transform: translateY(-4px);
-    }
-
-    /* Visual Dashboard Widget */
-    .hero-graphic {
-        position: relative;
-    }
-
-    .glass-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-glow);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        border-radius: 28px;
-        padding: 2.5rem;
-        position: relative;
-        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
-        transition: var(--transition);
-    }
-
-    .glass-card:hover {
-        border-color: rgba(99, 102, 241, 0.35);
-        transform: scale(1.03) translateY(-5px);
-        box-shadow: 0 35px 80px rgba(99, 102, 241, 0.15);
-    }
-
-    .notice-badge {
-        background: rgba(6, 182, 212, 0.12);
-        color: var(--secondary);
-        padding: 0.5rem 1.2rem;
-        border-radius: 50px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        display: inline-block;
-        margin-bottom: 1.8rem;
-        border: 1px solid rgba(6, 182, 212, 0.2);
-    }
-
-    .notice-list {
-        list-style: none;
-    }
-
-    .notice-item {
-        padding: 1.2rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        display: flex;
-        gap: 18px;
-        align-items: flex-start;
-        transition: var(--transition);
-    }
-
-    .notice-item:hover {
-        transform: translateX(5px);
-    }
-
-    .notice-item:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-
-    .notice-item:first-child {
-        padding-top: 0;
-    }
-
-    .notice-date {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid var(--border-glow);
-        padding: 0.5rem 0.8rem;
-        border-radius: 10px;
-        text-align: center;
-        min-width: 68px;
-    }
-
-    .notice-date span {
-        display: block;
-        font-size: 1rem;
-        font-weight: 700;
-        color: #fff;
-    }
-
-    .notice-date small {
-        display: block;
-        font-size: 0.65rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        margin-top: 2px;
-    }
-
-    .notice-text h3 {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 4px;
-        color: #fff;
-    }
-
-    .notice-text p {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        line-height: 1.4;
-    }
-
-    /* --- QUICK METRICS --- */
-    .metrics-bar {
-        background: rgba(10, 12, 16, 0.5);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border-top: 1px solid var(--border-glow);
-        border-bottom: 1px solid var(--border-glow);
-        padding: 3rem 0;
-        position: relative;
-    }
-
-    .metrics-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2.5rem;
-        padding: 0 2rem;
-        text-align: center;
-    }
-
-    .metric-item h2 {
-        font-size: 2.8rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, #fff, var(--secondary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 6px;
-    }
-
-    .metric-item p {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        font-weight: 600;
-    }
-
-    /* --- RESPONSIVE BREAKPOINT --- */
-    @media (max-width: 1024px) {
-        .hero-grid {
-            grid-template-columns: 1fr;
-            gap: 4rem;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #030014;
+            overflow-x: hidden;
         }
-        .hero h1 {
-            font-size: 3rem;
+        /* Custom scrollbar to keep layout premium */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .metrics-container {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
+        ::-webkit-scrollbar-track {
+            background: #030014;
         }
-        .nav-menu {
-            display: none;
+        ::-webkit-scrollbar-thumb {
+            background: #1f1a3a;
+            border-radius: 4px;
         }
-    }
-</style>
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b2d75;
+        }
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-panel:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(99, 102, 241, 0.1);
+            transform: translateY(-5px);
+        }
+        /* 3D Canvas Canvas container */
+        #webgl-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
 </head>
-<body>
+<body class="text-slate-200">
 
-<canvas id="bgCanvas"></canvas>
-<div class="mouse-glow" id="mouseGlow"></div>
+    <div id="webgl-container"></div>
 
-<header>
-    <nav class="nav-container">
-        <div class="logo-block">
-            <div class="logo-icon">
-                <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-            <div class="logo-text">
-                <h1>GPT UTHANGARAI</h1>
-                <p>Govt. Polytechnic College</p>
-            </div>
-        </div>
-            
-        <ul class="nav-menu">
-            <li><a href="#home" class="nav-link active">Home</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#academics" class="nav-link">Academics</a></li>
-            <li><a href="#faculties" class="nav-link">Faculties</a></li>
-            <li><a href="#aicte" class="nav-link">AICTE</a></li>
-            <li><a href="#activities" class="nav-link">Activities</a></li>
-            <li><a href="#campus" class="nav-link">Campus Life</a></li>
-            <li><a href="#archives" class="nav-link">Archives</a></li>
-            <li><a href="#student" class="nav-link">Student Corner</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-    </nav>
-</header>
-
-<section class="hero" id="home">
-    <div class="hero-grid">
-        <div class="hero-content">
-            <h2>Welcome to Premium Education</h2>
-            <h1>Empowering Tomorrow via <span>Technical Excellence</span></h1>
-            <p>Government Polytechnic College, Uthangarai (Krishnagiri District) offers highly progressive engineering diploma pathways approved by AICTE, creating highly capable technocrats prepared for modern engineering challenges.</p>
-            <div class="btn-group">
-                <a href="#academics" class="btn btn-primary">Explore Academics <i class="fa-solid fa-arrow-right"></i></a>
-                <a href="#contact" class="btn btn-secondary">Student Corner</a>
-            </div>
-        </div>
-            
-        <div class="hero-graphic">
-            <div class="glass-card">
-                <span class="notice-badge"><i class="fa-solid fa-bell"></i> Live Updates & Archives</span>
-                <ul class="notice-list">
-                    <li class="notice-item">
-                        <div class="notice-date">
-                            <span>12</span>
-                            <small>Aug</small>
-                        </div>
-                        <div class="notice-text">
-                            <h3>AICTE EOA 2026-27</h3>
-                            <p>Extension of Approval received successfully for current cycles.</p>
-                        </div>
-                    </li>
-                    <li class="notice-item">
-                        <div class="notice-date">
-                            <span>05</span>
-                            <small>Aug</small>
-                        </div>
-                        <div class="notice-text">
-                            <h3>Admission Registrations Open</h3>
-                            <p>Diploma structural programs application windows are live.</p>
-                        </div>
-                    </li>
-                    <li class="notice-item">
-                        <div class="notice-date">
-                            <span>28</span>
-                            <small>Jul</small>
-                        </div>
-                        <div class="notice-text">
-                            <h3>Symposium Activities Setup</h3>
-                            <p>Annual technological intra-college activities dashboard configured.</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="metrics-bar">
-    <div class="metrics-container">
-        <div class="metric-item">
-            <h2>100%</h2>
-            <p>AICTE Approved</p>
-        </div>
-        <div class="metric-item">
-            <h2>5+</h2>
-            <p>Core Streams</p>
-        </div>
-        <div class="metric-item">
-            <h2>30+</h2>
-            <p>Expert Faculty</p>
-        </div>
-        <div class="metric-item">
-            <h2>1500+</h2>
-            <p>Alumni Base</p>
-        </div>
-    </div>
-</div>
-
-<script>
-    // --- 1. SMOOTH MOUSE MOUSE GLOW TRACKING ---
-    const glowElement = document.getElementById('mouseGlow');
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let currentX = mouseX;
-    let currentY = mouseY;
-
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    // Inertial spring rendering loops for the glow
-    function animateGlow() {
-        const ease = 0.08; // Lower value means smoother/slower catchup
-        currentX += (mouseX - currentX) * ease;
-        currentY += (mouseY - currentY) * ease;
+    <div class="relative z-10 w-full min-h-screen flex flex-col justify-between">
         
-        glowElement.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
-        requestAnimationFrame(animateGlow);
-    }
-    animateGlow();
+        <header class="w-full px-6 py-4 flex justify-between items-center glass-panel border-b border-white/5 rounded-none">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-tr from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid fa-graduation-cap text-xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-sm md:text-base font-extrabold tracking-wider bg-gradient-to-r from-white via-slate-200 to-indigo-400 bg-clip-text text-transparent">GPT UTHANGARAI</h1>
+                    <p class="text-[10px] text-indigo-300 tracking-widest uppercase font-semibold">Government Polytechnic College</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+                <a href="#about" class="hover:text-indigo-400 transition-colors">About</a>
+                <a href="#departments" class="hover:text-indigo-400 transition-colors">Departments</a>
+                <a href="#facilities" class="hover:text-indigo-400 transition-colors">Facilities</a>
+                <a href="#contact" class="px-4 py-2 bg-indigo-600/20 hover:bg-indigo-600 border border-indigo-500/30 rounded-lg text-indigo-300 hover:text-white transition-all shadow-lg shadow-indigo-600/10">Contact Us</a>
+            </nav>
+        </header>
 
+        <main class="max-w-7xl mx-auto px-6 py-12 flex-grow flex flex-col justify-center items-center text-center">
+            <span class="px-4 py-1.5 rounded-full glass-panel text-xs text-indigo-300 border border-indigo-500/20 font-medium mb-6 inline-block uppercase tracking-widest animate-pulse">
+                <i class="fa-solid fa-circle text-[8px] mr-2 text-indigo-400"></i>AICTE Approved • Estd 2013
+            </span>
+            <h2 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 bg-gradient-to-b from-white via-slate-100 to-slate-400 bg-clip-text text-transparent leading-none">
+                Shaping Technical Excellence <br>
+                <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">In a Digital Era.</span>
+            </h2>
+            <p class="max-w-2xl text-slate-400 text-sm md:text-lg mb-12 font-light leading-relaxed">
+                Located amidst a beautiful hillside environment on Salem to Thirupathur Main Road, GPT Uthangarai empowers students with state-of-the-art technical skills and holistic discipline.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#departments" class="px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-semibold shadow-xl shadow-indigo-600/20 hover:shadow-indigo-500/40 transform hover:-translate-y-0.5 transition-all text-sm tracking-wide">Explore Programs</a>
+                <a href="#about" class="px-8 py-3.5 glass-panel rounded-xl font-semibold text-sm tracking-wide">Learn More <i class="fa-solid fa-arrow-down ml-2 text-xs"></i></a>
+            </div>
+        </main>
 
-    // --- 2. DYNAMIC INTERACTIVE INTERACTIVE CANVAS BACKGROUND ---
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
+        <section class="max-w-7xl mx-auto px-6 w-full grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+            <div class="glass-panel p-6 rounded-2xl text-center">
+                <h3 class="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">1000+</h3>
+                <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-medium">Students Enrolled</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl text-center">
+                <h3 class="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">7+</h3>
+                <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-medium">Engineering Depts</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl text-center">
+                <h3 class="text-3xl font-bold bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent">10 Acres</h3>
+                <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-medium">Lush Campus</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl text-center">
+                <h3 class="text-3xl font-bold bg-gradient-to-r from-orange-400 to-indigo-400 bg-clip-text text-transparent">Co-Ed</h3>
+                <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-medium">Institution</p>
+            </div>
+        </section>
 
-    let particles = [];
-    const maxParticles = 65;
-    const connectionRadius = 130;
+        <section id="departments" class="max-w-7xl mx-auto px-6 w-full mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-4xl font-extrabold mb-3">Academic Excellence</h2>
+                <div class="w-16 h-1 bg-indigo-500 mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-indigo-400 mb-4 text-2xl"><i class="fa-solid fa-laptop-code"></i></div>
+                        <h4 class="text-lg font-bold mb-2">Computer Engineering</h4>
+                        <p class="text-slate-400 text-xs font-light leading-relaxed">Pioneering core computing methodologies, software architecture development, and advanced networking infrastructure systems.</p>
+                    </div>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-purple-400 mb-4 text-2xl"><i class="fa-solid fa-gears"></i></div>
+                        <h4 class="text-lg font-bold mb-2">Mechanical Engineering</h4>
+                        <p class="text-slate-400 text-xs font-light leading-relaxed">Providing deep domain hands-on learning in fundamental machine design, thermodynamics, and precision mechanical operations.</p>
+                    </div>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-pink-400 mb-4 text-2xl"><i class="fa-solid fa-bolt"></i></div>
+                        <h4 class="text-lg font-bold mb-2">Electrical & Electronics</h4>
+                        <p class="text-slate-400 text-xs font-light leading-relaxed">Specializing in power systems generation, microelectronics circuitry grid, and heavy electrical machines execution.</p>
+                    </div>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-orange-400 mb-4 text-2xl"><i class="fa-solid fa-microchip"></i></div>
+                        <h4 class="text-lg font-bold mb-2">Electronics & Communication</h4>
+                        <p class="text-slate-400 text-xs font-light leading-relaxed">Diving down deep into digital signal communications protocols, embedded systems, and automation networks.</p>
+                    </div>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-teal-400 mb-4 text-2xl"><i class="fa-solid fa-building"></i></div>
+                        <h4 class="text-lg font-bold mb-2">Civil Engineering</h4>
+                        <p class="text-slate-400 text-xs font-light leading-relaxed">Mastering infrastructure structural blueprints, survey mapping, and environment-friendly modern engineering construction framework designs.</p>
+                    </div>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-cyan-400 mb-4 text-2xl"><i class="fa-solid fa-robot"></i></div>
+                        <h4 class="text-lg font-bold mb-2">Advanced Technologies</h4>
+                        <p class="text-slate-400 text-xs font-light leading-relaxed">Featuring Mechatronics Engineering and Digital Manufacturing Systems explicitly specialized for modern automated plant ecosystems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+        <footer id="contact" class="w-full px-6 py-12 glass-panel rounded-none border-t border-white/5">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
+                <div>
+                    <h5 class="text-lg font-bold mb-2">Contact Administration</h5>
+                    <p class="text-slate-400 text-xs font-light leading-relaxed">
+                        The Principal, Government Polytechnic College,<br>
+                        Appinayakanpatti, Uthangarai, Krishnagiri - 635207,<br>
+                        Tamil Nadu, India.
+                    </p>
+                </div>
+                <div class="flex flex-col gap-2 text-xs text-slate-400">
+                    <div><i class="fa-solid fa-phone text-indigo-400 mr-2"></i> +91 4341-291959</div>
+                    <div><i class="fa-solid fa-envelope text-indigo-400 mr-2"></i> gptuthangarai@gmail.com</div>
+                    <div><i class="fa-solid fa-globe text-indigo-400 mr-2"></i> helpdesk@gptuthangarai.in</div>
+                </div>
+                <div class="text-center md:text-right text-xs text-slate-500">
+                    <p>&copy; Government Polytechnic College - Uthangarai.</p>
+                    <p class="mt-1">Designed by Dept. of Computer Engineering</p>
+                </div>
+            </div>
+        </footer>
 
-    // Particle Object Scheme
-    class Particle {
-        constructor() {
-            this.reset();
-        }
-        reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 0.4;
-            this.vy = (Math.random() - 0.5) * 0.4;
-            this.radius = Math.random() * 1.5 + 1;
-        }
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
+    </div>
 
-            // Bounce check boundaries
-            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-        }
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-            ctx.fill();
-        }
-    }
-
-    // Seed matrix setup
-    for (let i = 0; i < maxParticles; i++) {
-        particles.push(new Particle());
-    }
-
-    // Engine Loop
-    function renderMatrixFrame() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <script>
+        // Setup Three.js Elements
+        const container = document.getElementById('webgl-container');
+        const scene = new THREE.Scene();
         
-        // Draw CSS Grid alternative manually onto Canvas with subtle performance ratios
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.01)';
-        ctx.lineWidth = 1;
-        const gridGap = 60;
-        for(let x=0; x<canvas.width; x+=gridGap){
-            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+        // Add deep space atmospheric fog
+        scene.fog = new THREE.FogExp2(0x030014, 0.015);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 35;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        // Track user mouse movements 
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        window.addEventListener('mousemove', (event) => {
+            // Normalized values between -1 and 1
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Generate 3D Particle Constellation / Digital Grid
+        const count = 1800;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
+
+        const colorPalette = [
+            new THREE.Color(0x6366f1), // Indigo
+            new THREE.Color(0xa855f7), // Purple
+            new THREE.Color(0xec4899), // Pink
+            new THREE.Color(0x1e1b4b)  // Dark deep purple buffer
+        ];
+
+        for(let i=0; i<count*3; i+=3) {
+            // Distribute shapes across a wide spherical field plane layout
+            positions[i] = (Math.random() - 0.5) * 120;
+            positions[i+1] = (Math.random() - 0.5) * 120;
+            positions[i+2] = (Math.random() - 0.5) * 80;
+
+            // Pick color variation for rich graphical look
+            const randomColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+            colors[i] = randomColor.r;
+            colors[i+1] = randomColor.g;
+            colors[i+2] = randomColor.b;
         }
-        for(let y=0; y<canvas.height; y+=gridGap){
-            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-        }
 
-        // Processing points and building proximity webs
-        for (let i = 0; i < particles.length; i++) {
-            const p1 = particles[i];
-            p1.update();
-            p1.draw();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-            // Link with active cursor location coordinates
-            const dxMouse = p1.x - mouseX;
-            const dyMouse = p1.y - mouseY;
-            const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+        // Create customizable material point texture for glow particles
+        const createParticleTexture = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = 16;
+            canvas.height = 16;
+            const ctx = canvas.getContext('2d');
+            const gradient = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
+            gradient.addColorStop(0, 'rgba(255,255,255,1)');
+            gradient.addColorStop(1, 'rgba(255,255,255,0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 16, 16);
+            return new THREE.CanvasTexture(canvas);
+        };
 
-            if (distMouse < 200) {
-                const alpha = (1 - distMouse / 200) * 0.15;
-                ctx.strokeStyle = `rgba(6, 182, 212, ${alpha})`;
-                ctx.lineWidth = 0.8;
-                ctx.beginPath();
-                ctx.moveTo(p1.x, p1.y);
-                ctx.lineTo(mouseX, mouseY);
-                ctx.stroke();
-            }
+        const material = new THREE.PointsMaterial({
+            size: 0.35,
+            map: createParticleTexture(),
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.85,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
 
-            // Link vector nodes to adjacent nodes
-            for (let j = i + 1; j < particles.length; j++) {
-                const p2 = particles[j];
-                const dx = p1.x - p2.x;
-                const dy = p1.y - p2.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+        const particleMesh = new THREE.Points(geometry, material);
+        scene.add(particleMesh);
 
-                if (distance < connectionRadius) {
-                    const alpha = (1 - distance / connectionRadius) * 0.08;
-                    ctx.strokeStyle = `rgba(99, 102, 241, ${alpha})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.beginPath();
-                    ctx.moveTo(p1.x, p1.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.stroke();
-                }
-            }
-        }
-        requestAnimationFrame(renderMatrixFrame);
-    }
-    renderMatrixFrame();
-</script>
+        // Add an additional moving 3D Wireframe geometric construct 
+        const wireframeGeo = new THREE.IcosahedronGeometry(15, 1);
+        const wireframeMat = new THREE.MeshBasicMaterial({
+            color: 0x4f46e5,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.08
+        });
+        const wireframeMesh = new THREE.Mesh(wireframeGeo, wireframeMat);
+        scene.add(wireframeMesh);
 
+        // Animation Loop
+        const clock = new THREE.Clock();
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+
+            const elapsedTime = clock.getElapsedTime();
+
+            // Self rotation of coordinates over absolute time
+            particleMesh.rotation.y = elapsedTime * 0.03;
+            particleMesh.rotation.x = elapsedTime * 0.01;
+            
+            wireframeMesh.rotation.y = -elapsedTime * 0.05;
+
+            // Smooth Interpolation (Lerp) calculations to react to mouse positioning smoothly
+            targetX = mouseX * 15;
+            targetY = mouseY * 15;
+
+            particleMesh.position.x += (targetX - particleMesh.position.x) * 0.05;
+            particleMesh.position.y += (targetY - particleMesh.position.y) * 0.05;
+
+            wireframeMesh.position.x += (targetX - wireframeMesh.position.x) * 0.03;
+            wireframeMesh.position.y += (targetY - wireframeMesh.position.y) * 0.03;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+
+        // Responsive window adjustment
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>
