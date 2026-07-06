@@ -1,326 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Government Polytechnic College, Uthangarai</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #030014;
-            overflow-x: hidden;
-        }
-        /* Custom scrollbar to keep layout premium */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #030014;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1f1a3a;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3b2d75;
-        }
-        /* Glassmorphism utility */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .glass-panel:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(99, 102, 241, 0.4);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(99, 102, 241, 0.1);
-            transform: translateY(-5px);
-        }
-        /* 3D Canvas Canvas container */
-        #webgl-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-    </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Government Polytechnic College, Uthangarai</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 </head>
-<body class="text-slate-200">
 
-    <div id="webgl-container"></div>
+<body>
 
-    <div class="relative z-10 w-full min-h-screen flex flex-col justify-between">
-        
-        <header class="w-full px-6 py-4 flex justify-between items-center glass-panel border-b border-white/5 rounded-none">
-            <div class="flex items-center gap-3">
-                <div class="bg-gradient-to-tr from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg shadow-indigo-500/30">
-                    <i class="fa-solid fa-graduation-cap text-xl text-white"></i>
-                </div>
-                <div>
-                    <h1 class="text-sm md:text-base font-extrabold tracking-wider bg-gradient-to-r from-white via-slate-200 to-indigo-400 bg-clip-text text-transparent">GPT UTHANGARAI</h1>
-                    <p class="text-[10px] text-indigo-300 tracking-widest uppercase font-semibold">Government Polytechnic College</p>
-                </div>
-            </div>
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
-                <a href="#about" class="hover:text-indigo-400 transition-colors">About</a>
-                <a href="#departments" class="hover:text-indigo-400 transition-colors">Departments</a>
-                <a href="#facilities" class="hover:text-indigo-400 transition-colors">Facilities</a>
-                <a href="#contact" class="px-4 py-2 bg-indigo-600/20 hover:bg-indigo-600 border border-indigo-500/30 rounded-lg text-indigo-300 hover:text-white transition-all shadow-lg shadow-indigo-600/10">Contact Us</a>
-            </nav>
-        </header>
+<!-- ================= NAVIGATION ================= -->
 
-        <main class="max-w-7xl mx-auto px-6 py-12 flex-grow flex flex-col justify-center items-center text-center">
-            <span class="px-4 py-1.5 rounded-full glass-panel text-xs text-indigo-300 border border-indigo-500/20 font-medium mb-6 inline-block uppercase tracking-widest animate-pulse">
-                <i class="fa-solid fa-circle text-[8px] mr-2 text-indigo-400"></i>AICTE Approved • Estd 2013
-            </span>
-            <h2 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 bg-gradient-to-b from-white via-slate-100 to-slate-400 bg-clip-text text-transparent leading-none">
-                Shaping Technical Excellence <br>
-                <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">In a Digital Era.</span>
-            </h2>
-            <p class="max-w-2xl text-slate-400 text-sm md:text-lg mb-12 font-light leading-relaxed">
-                Located amidst a beautiful hillside environment on Salem to Thirupathur Main Road, GPT Uthangarai empowers students with state-of-the-art technical skills and holistic discipline.
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#departments" class="px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-semibold shadow-xl shadow-indigo-600/20 hover:shadow-indigo-500/40 transform hover:-translate-y-0.5 transition-all text-sm tracking-wide">Explore Programs</a>
-                <a href="#about" class="px-8 py-3.5 glass-panel rounded-xl font-semibold text-sm tracking-wide">Learn More <i class="fa-solid fa-arrow-down ml-2 text-xs"></i></a>
-            </div>
-        </main>
+<header>
 
-        <section class="max-w-7xl mx-auto px-6 w-full grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-            <div class="glass-panel p-6 rounded-2xl text-center">
-                <h3 class="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">1000+</h3>
-                <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-medium">Students Enrolled</p>
-            </div>
-            <div class="glass-panel p-6 rounded-2xl text-center">
-                <h3 class="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">7+</h3>
-                <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-medium">Engineering Depts</p>
-            </div>
-            <div class="glass-panel p-6 rounded-2xl text-center">
-                <h3 class="text-3xl font-bold bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent">10 Acres</h3>
-                <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-medium">Lush Campus</p>
-            </div>
-            <div class="glass-panel p-6 rounded-2xl text-center">
-                <h3 class="text-3xl font-bold bg-gradient-to-r from-orange-400 to-indigo-400 bg-clip-text text-transparent">Co-Ed</h3>
-                <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-medium">Institution</p>
-            </div>
-        </section>
+<nav class="navbar">
 
-        <section id="departments" class="max-w-7xl mx-auto px-6 w-full mb-24">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl md:text-4xl font-extrabold mb-3">Academic Excellence</h2>
-                <div class="w-16 h-1 bg-indigo-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="text-indigo-400 mb-4 text-2xl"><i class="fa-solid fa-laptop-code"></i></div>
-                        <h4 class="text-lg font-bold mb-2">Computer Engineering</h4>
-                        <p class="text-slate-400 text-xs font-light leading-relaxed">Pioneering core computing methodologies, software architecture development, and advanced networking infrastructure systems.</p>
-                    </div>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="text-purple-400 mb-4 text-2xl"><i class="fa-solid fa-gears"></i></div>
-                        <h4 class="text-lg font-bold mb-2">Mechanical Engineering</h4>
-                        <p class="text-slate-400 text-xs font-light leading-relaxed">Providing deep domain hands-on learning in fundamental machine design, thermodynamics, and precision mechanical operations.</p>
-                    </div>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="text-pink-400 mb-4 text-2xl"><i class="fa-solid fa-bolt"></i></div>
-                        <h4 class="text-lg font-bold mb-2">Electrical & Electronics</h4>
-                        <p class="text-slate-400 text-xs font-light leading-relaxed">Specializing in power systems generation, microelectronics circuitry grid, and heavy electrical machines execution.</p>
-                    </div>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="text-orange-400 mb-4 text-2xl"><i class="fa-solid fa-microchip"></i></div>
-                        <h4 class="text-lg font-bold mb-2">Electronics & Communication</h4>
-                        <p class="text-slate-400 text-xs font-light leading-relaxed">Diving down deep into digital signal communications protocols, embedded systems, and automation networks.</p>
-                    </div>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="text-teal-400 mb-4 text-2xl"><i class="fa-solid fa-building"></i></div>
-                        <h4 class="text-lg font-bold mb-2">Civil Engineering</h4>
-                        <p class="text-slate-400 text-xs font-light leading-relaxed">Mastering infrastructure structural blueprints, survey mapping, and environment-friendly modern engineering construction framework designs.</p>
-                    </div>
-                </div>
-                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="text-cyan-400 mb-4 text-2xl"><i class="fa-solid fa-robot"></i></div>
-                        <h4 class="text-lg font-bold mb-2">Advanced Technologies</h4>
-                        <p class="text-slate-400 text-xs font-light leading-relaxed">Featuring Mechatronics Engineering and Digital Manufacturing Systems explicitly specialized for modern automated plant ecosystems.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+<div class="logo">
 
-        <footer id="contact" class="w-full px-6 py-12 glass-panel rounded-none border-t border-white/5">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
-                <div>
-                    <h5 class="text-lg font-bold mb-2">Contact Administration</h5>
-                    <p class="text-slate-400 text-xs font-light leading-relaxed">
-                        The Principal, Government Polytechnic College,<br>
-                        Appinayakanpatti, Uthangarai, Krishnagiri - 635207,<br>
-                        Tamil Nadu, India.
-                    </p>
-                </div>
-                <div class="flex flex-col gap-2 text-xs text-slate-400">
-                    <div><i class="fa-solid fa-phone text-indigo-400 mr-2"></i> +91 4341-291959</div>
-                    <div><i class="fa-solid fa-envelope text-indigo-400 mr-2"></i> gptuthangarai@gmail.com</div>
-                    <div><i class="fa-solid fa-globe text-indigo-400 mr-2"></i> helpdesk@gptuthangarai.in</div>
-                </div>
-                <div class="text-center md:text-right text-xs text-slate-500">
-                    <p>&copy; Government Polytechnic College - Uthangarai.</p>
-                    <p class="mt-1">Designed by Dept. of Computer Engineering</p>
-                </div>
-            </div>
-        </footer>
+<h2>GPT UTHANGARAI</h2>
 
-    </div>
+</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
-    <script>
-        // Setup Three.js Elements
-        const container = document.getElementById('webgl-container');
-        const scene = new THREE.Scene();
-        
-        // Add deep space atmospheric fog
-        scene.fog = new THREE.FogExp2(0x030014, 0.015);
+<ul>
 
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 35;
+<li><a href="index.html">Home</a></li>
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        container.appendChild(renderer.domElement);
+<li><a href="about.html">About</a></li>
 
-        // Track user mouse movements 
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
+<li><a href="departments.html">Departments</a></li>
 
-        window.addEventListener('mousemove', (event) => {
-            // Normalized values between -1 and 1
-            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-        });
+<li><a href="faculty.html">Faculty</a></li>
 
-        // Generate 3D Particle Constellation / Digital Grid
-        const count = 1800;
-        const geometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(count * 3);
-        const colors = new Float32Array(count * 3);
+<li><a href="admission.html">Admission</a></li>
 
-        const colorPalette = [
-            new THREE.Color(0x6366f1), // Indigo
-            new THREE.Color(0xa855f7), // Purple
-            new THREE.Color(0xec4899), // Pink
-            new THREE.Color(0x1e1b4b)  // Dark deep purple buffer
-        ];
+<li><a href="placement.html">Placement</a></li>
 
-        for(let i=0; i<count*3; i+=3) {
-            // Distribute shapes across a wide spherical field plane layout
-            positions[i] = (Math.random() - 0.5) * 120;
-            positions[i+1] = (Math.random() - 0.5) * 120;
-            positions[i+2] = (Math.random() - 0.5) * 80;
+<li><a href="gallery.html">Gallery</a></li>
 
-            // Pick color variation for rich graphical look
-            const randomColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-            colors[i] = randomColor.r;
-            colors[i+1] = randomColor.g;
-            colors[i+2] = randomColor.b;
-        }
+<li><a href="contact.html">Contact</a></li>
 
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+</ul>
 
-        // Create customizable material point texture for glow particles
-        const createParticleTexture = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = 16;
-            canvas.height = 16;
-            const ctx = canvas.getContext('2d');
-            const gradient = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
-            gradient.addColorStop(0, 'rgba(255,255,255,1)');
-            gradient.addColorStop(1, 'rgba(255,255,255,0)');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 16, 16);
-            return new THREE.CanvasTexture(canvas);
-        };
+</nav>
 
-        const material = new THREE.PointsMaterial({
-            size: 0.35,
-            map: createParticleTexture(),
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.85,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false
-        });
+</header>
 
-        const particleMesh = new THREE.Points(geometry, material);
-        scene.add(particleMesh);
+<!-- ================= HERO SECTION ================= -->
 
-        // Add an additional moving 3D Wireframe geometric construct 
-        const wireframeGeo = new THREE.IcosahedronGeometry(15, 1);
-        const wireframeMat = new THREE.MeshBasicMaterial({
-            color: 0x4f46e5,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.08
-        });
-        const wireframeMesh = new THREE.Mesh(wireframeGeo, wireframeMat);
-        scene.add(wireframeMesh);
+<section class="hero">
 
-        // Animation Loop
-        const clock = new THREE.Clock();
+<video autoplay muted loop playsinline>
 
-        const animate = () => {
-            requestAnimationFrame(animate);
+<source src="videos/campus.mp4" type="video/mp4">
 
-            const elapsedTime = clock.getElapsedTime();
+</video>
 
-            // Self rotation of coordinates over absolute time
-            particleMesh.rotation.y = elapsedTime * 0.03;
-            particleMesh.rotation.x = elapsedTime * 0.01;
-            
-            wireframeMesh.rotation.y = -elapsedTime * 0.05;
+<div class="overlay"></div>
 
-            // Smooth Interpolation (Lerp) calculations to react to mouse positioning smoothly
-            targetX = mouseX * 15;
-            targetY = mouseY * 15;
+<div class="hero-content">
 
-            particleMesh.position.x += (targetX - particleMesh.position.x) * 0.05;
-            particleMesh.position.y += (targetY - particleMesh.position.y) * 0.05;
+<h1>Government Polytechnic College</h1>
 
-            wireframeMesh.position.x += (targetX - wireframeMesh.position.x) * 0.03;
-            wireframeMesh.position.y += (targetY - wireframeMesh.position.y) * 0.03;
+<h2>Uthangarai</h2>
 
-            renderer.render(scene, camera);
-        };
+<p>
 
-        animate();
+Empowering Young Engineers Through Quality Technical Education
 
-        // Responsive window adjustment
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
+</p>
+
+<div class="buttons">
+
+<a href="about.html" class="btn">Explore College</a>
+
+<a href="admission.html" class="btn2">Admissions</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= LATEST NEWS ================= -->
+
+<section class="news">
+
+<h2>Latest Announcements</h2>
+
+<div class="news-box">
+
+<marquee>
+
+Admissions Open | Placement Training | Symposium | NSS Camp | Sports Meet | Campus Recruitment
+
+</marquee>
+
+</div>
+
+</section>
+
+<!-- More sections will be added in Part 2 -->
+
+<script src="script.js"></script>
+
 </body>
 </html>
